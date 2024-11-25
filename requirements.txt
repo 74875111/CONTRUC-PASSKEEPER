@@ -1,4 +1,4 @@
 cryptography
-python-dotenv
-secrets
+dotenv
 pyperclip
+coverage
