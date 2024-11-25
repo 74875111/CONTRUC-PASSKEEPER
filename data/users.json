@@ -6,5 +6,12 @@
             "username": "daniel",
             "language": "es"
         }
+    },
+    "7774f819-d841-485b-a286-5f82745733fb": {
+        "password": "12345",
+        "details": {
+            "email": "leonardo@hotmail.com",
+            "username": "juan"
+        }
     }
 }
