@@ -275,19 +275,26 @@ def view_password(session_id, localization, folder_name):
         print(localization.translate('no_passwords_saved'))
         return
 
-    for entry in folder:
-        print(f"{entry['id']}: {entry['name']} ({entry['username']})")
+    for index, entry in enumerate(folder):
+        print(f"{index + 1}: {entry['name']} ({entry['username']})")
 
-    option = input(localization.translate('select_password'))
-    selected_entry = next((e for e in folder if e['id'] == option), None)
-
-    if selected_entry:
-        decrypted_password = cipher.decrypt(selected_entry['password'].encode())
-        if isinstance(decrypted_password, bytes):
-            decrypted_password = decrypted_password.decode()
-        print(f"password: {decrypted_password}")
-    else:
+    try:
+        option = int(input(localization.translate('select_password'))) - 1
+        if option < 0 or option >= len(folder):
+            raise ValueError
+    except ValueError:
         print(localization.translate('invalid_option'))
+        return
+
+    selected_entry = folder[option]
+
+    decrypted_password = cipher.decrypt(selected_entry['password'].encode())
+    if isinstance(decrypted_password, bytes):
+        decrypted_password = decrypted_password.decode()
+    print(f"password: {decrypted_password}")
+
+    # Esperar a que el usuario presione una tecla para continuar
+    input(localization.translate('press_any_key_to_continue'))
 
 
 
